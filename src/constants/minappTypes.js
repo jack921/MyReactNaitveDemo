@@ -1,0 +1,1 @@
+export const MIN_APP_STATUS='MIN_APP_STATUS';

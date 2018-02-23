@@ -1,8 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
 import React, { Component } from 'react';
 import TabNavigator from 'react-native-tab-navigator';
 import Merchant from'./src/merchant/merchant.js';
@@ -13,6 +8,7 @@ import {
     StyleSheet,
     View,
     Image,
+    Text
 } from 'react-native';
 
 export default class App extends Component{
@@ -22,9 +18,9 @@ export default class App extends Component{
             selectedTab: 'merchant',
         }
     }
+
     render() {
         const { navigate } = this.props.navigation;
-
         return (
             <View style={styles.container}>
                 <TabNavigator >
@@ -38,7 +34,6 @@ export default class App extends Component{
                         onPress={() => this.setState({ selectedTab: 'merchant' })}>
                         <Merchant navigation={navigate}/>
                     </TabNavigator.Item>
-
                     <TabNavigator.Item
                         selected={this.state.selectedTab === 'minapp'}
                         title="小程序"
@@ -49,7 +44,6 @@ export default class App extends Component{
                         onPress={() => this.setState({ selectedTab: 'minapp' })}>
                         <MinApp/>
                     </TabNavigator.Item>
-
                     <TabNavigator.Item
                         selected={this.state.selectedTab === 'my'}
                         title="我的"
@@ -83,4 +77,3 @@ const styles = StyleSheet.create({
         height: 18
     },
 });
-

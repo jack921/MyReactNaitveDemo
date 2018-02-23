@@ -141,9 +141,6 @@ export default class Pay extends Component{
 
 }
 
-
-
-
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#f2f2f2'

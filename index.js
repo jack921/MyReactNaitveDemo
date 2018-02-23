@@ -1,15 +1,13 @@
-import { StackNavigator } from 'react-navigation';
+import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
-import App from './App';
-import Pay from  './src/merchant/Pay.js';
-import Deal from './src/merchant/deal.js';
+import Root from './src/Root.js';
 
-const SimpleApp = StackNavigator({
-    App: {screen:App },
-    Pay:{screen:Pay},
-    Deal:{screen:Deal},
-},{
-    headerMode: 'none',
-});
+class index extends Component{
+    render() {
+        return (
+            <Root />
+        );
+    }
+}
 
-AppRegistry.registerComponent('MyReactNaitveDemo', () => SimpleApp);
+AppRegistry.registerComponent('MyReactNaitveDemo', () => index);

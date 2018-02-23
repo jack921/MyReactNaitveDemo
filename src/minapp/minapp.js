@@ -84,6 +84,8 @@ export default class minapp extends  Component{
     }
 }
 
+
+
 const styles = StyleSheet.create({
     container: {
       flex: 1,
