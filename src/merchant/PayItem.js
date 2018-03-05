@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 export default class PayItem extends Component{
 
     render(){
+        const { sourceData } =this.props;
         return(
             <View style={styles.container}>
                 <View style={styles.container_item}>
@@ -19,13 +20,13 @@ export default class PayItem extends Component{
                                    underlineColorAndroid='transparent'
                                    onChangeText={(text)=>{
                                        this.props.sendStart(this.props.index,text);
-                                   }}></TextInput>
+                                   }}>{sourceData.startSend}</TextInput>
                         <Text style={styles.container_item_text_tip}>KM~</Text>
                         <TextInput style={styles.container_item_input}
                                    underlineColorAndroid='transparent'
                                    onChangeText={(text)=>{
                                        this.props.sendEnd(this.props.index,text);
-                                   }}></TextInput>
+                                   }}>{sourceData.endSend}</TextInput>
                         <Text style={styles.container_item_text_tip}>KM</Text>
                     </View>
                 </View>
@@ -37,7 +38,7 @@ export default class PayItem extends Component{
                                    underlineColorAndroid='transparent'
                                    onChangeText={(text)=>{
                                        this.props.qsMoney(this.props.index,text);
-                                   }}></TextInput>
+                                   }}>{sourceData.qs_money}</TextInput>
                         <Text style={styles.container_item_text_tip2}>元</Text>
                     </View>
                 </View>
@@ -49,7 +50,7 @@ export default class PayItem extends Component{
                                    underlineColorAndroid='transparent'
                                    onChangeText={(text)=>{
                                        this.props.psMoney(this.props.index,text);
-                                   }}></TextInput>
+                                   }}>{sourceData.ps_money}</TextInput>
                         <Text style={styles.container_item_text_tip2}>元</Text>
                     </View>
                 </View>
@@ -61,7 +62,7 @@ export default class PayItem extends Component{
                                    underlineColorAndroid='transparent'
                                    onChangeText={(text)=>{
                                        this.props.freeMoney(this.props.index,text);
-                                   }}></TextInput>
+                                   }}>{sourceData.free_money}</TextInput>
                         <Text style={styles.container_item_text_tip2}>元</Text>
                     </View>
                 </View>

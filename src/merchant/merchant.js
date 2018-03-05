@@ -167,7 +167,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
 
-
     banner_tip:{
         marginTop: 30,
         fontSize: 20,
@@ -248,7 +247,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-
-
 
 });

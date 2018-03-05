@@ -8,7 +8,6 @@ import {
     StyleSheet,
     View,
     Image,
-    Text
 } from 'react-native';
 
 export default class App extends Component{

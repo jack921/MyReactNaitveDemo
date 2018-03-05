@@ -9,19 +9,14 @@ import {
 } from 'react-native';
 
 import TemplateTitle from '../widget/TemplateTitle.js';
+import *as PayAction from '../action/PayAction';
+import { connect } from 'react-redux';
 import PayItem from './PayItem.js';
 
-
-export default class Pay extends Component{
-
-    constructor(props){
-        super(props);
-        this.state={
-            sourceData:[],
-        }
-    }
+class Pay extends Component{
 
     render(){
+        const { sourceData , name } =this.props;
         return(
             <View style={styles.container}>
                 <TemplateTitle
@@ -36,43 +31,30 @@ export default class Pay extends Component{
                     ListEmptyComponent={this._emptyComponent}
                     renderItem={this._renderItem}
                     refreshing={false}
-                    data={this.state.sourceData}></FlatList>
+                    data={sourceData}></FlatList>
             </View>
         );
-    }
-
-    componentDidMount(){
-         let payData = [
-            {
-                startSend: '',
-                endSend:'',
-                qs_money:'',
-                ps_money:'',
-                free_money:'',
-            }
-        ]
-        this.setState({sourceData:payData});
     }
 
     _renderItem=({item,index})=>{
         return (
            <PayItem
                index={index}
+               sourceData={item}
                sendStart={(index,text)=>{
-                   this.state.sourceData[index].startSend=text;
-                   // ToastAndroid.show("index:"+index+",text:"+text, ToastAndroid.SHORT);
+                   // this.state.sourceData[index].startSend=text;
                }}
                sendEnd={(index,text)=>{
-                   this.state.sourceData[index].endSend=text;
+                   // this.state.sourceData[index].endSend=text;
                }}
                qsMoney={(index,text)=>{
-                   this.state.sourceData[index].qs_money=text;
+                   // this.state.sourceData[index].qs_money=text;
                }}
                psMoney={(index,text)=>{
-                   this.state.sourceData[index].ps_money=text;
+                   // this.state.sourceData[index].ps_money=text;
                }}
                freeMoney={(index,text)=>{
-                   this.state.sourceData[index].free_money=text;
+                   // this.state.sourceData[index].free_money=text;
                }}
            ></PayItem>
         );
@@ -89,6 +71,7 @@ export default class Pay extends Component{
     }
 
     _footerView=()=>{
+        const { AddPayItem ,sourceData}=this.props;
         return(
             <View style={styles.container}>
                 <Text style={styles.pay_tip}>注:不在此配送范围内则不赠送</Text>
@@ -99,7 +82,7 @@ export default class Pay extends Component{
                         color="#D0D0D0"/>
                     <View style={{width:80}}></View>
                     <Button
-                        onPress={this._createSend.bind(this)}
+                        onPress={()=>AddPayItem(sourceData)}
                         title="增加配送范围"
                         color="#329DFF"/>
                 </View>
@@ -119,16 +102,16 @@ export default class Pay extends Component{
     }
 
     _createSend(){
-        let list=[];
-        list=list.concat(this.state.sourceData);
-        list.push({
-            startSend: '',
-            endSend:'',
-            qs_money:'',
-            ps_money:'',
-            free_money:'',
-        });
-        this.setState({sourceData:list});
+        // let list=[];
+        // list=list.concat(this.state.sourceData);
+        // list.push({
+        //     startSend: '',
+        //     endSend:'',
+        //     qs_money:'',
+        //     ps_money:'',
+        //     free_money:'',
+        // });
+        // this.setState({sourceData:list});
     }
 
     rightOnClick(){
@@ -141,18 +124,26 @@ export default class Pay extends Component{
 
 }
 
+export default connect(
+    (state)=>({
+        sourceData: state.payReducers.sourceData,
+        name: state.payReducers.name,
+    }),
+    (dispatch)=>({
+        AddPayItem: (sourceData)=>dispatch(PayAction.AddPayItem(sourceData)),
+    })
+)(Pay)
+
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#f2f2f2'
     },
-
     pay_tip:{
         color: '#888888',
         marginTop: 10,
         marginBottom: 10,
         marginLeft: 8,
     },
-
     bottom_ease:{
         flexDirection: 'row',
         width: '100%',
@@ -160,6 +151,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 60,
     }
-
 });
 
