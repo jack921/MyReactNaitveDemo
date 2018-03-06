@@ -16,7 +16,7 @@ import PayItem from './PayItem.js';
 class Pay extends Component{
 
     render(){
-        const { sourceData , name } =this.props;
+        const { sourceData } =this.props;
         return(
             <View style={styles.container}>
                 <TemplateTitle
@@ -37,24 +37,30 @@ class Pay extends Component{
     }
 
     _renderItem=({item,index})=>{
+        const { sourceData,ChangItemData } =this.props;
         return (
            <PayItem
                index={index}
                sourceData={item}
                sendStart={(index,text)=>{
-                   // this.state.sourceData[index].startSend=text;
+                   // sourceData[index].startSend=text;
+                   ChangItemData(sourceData,text,1,index)
                }}
                sendEnd={(index,text)=>{
-                   // this.state.sourceData[index].endSend=text;
+                   // sourceData[index].endSend=text;
+                   ChangItemData(sourceData,text,2,index)
                }}
                qsMoney={(index,text)=>{
-                   // this.state.sourceData[index].qs_money=text;
+                   // sourceData[index].qs_money=text;
+                   ChangItemData(sourceData,text,3,index)
                }}
                psMoney={(index,text)=>{
-                   // this.state.sourceData[index].ps_money=text;
+                   // sourceData[index].ps_money=text;
+                   ChangItemData(sourceData,text,4,index)
                }}
                freeMoney={(index,text)=>{
-                   // this.state.sourceData[index].free_money=text;
+                   // sourceData[index].free_money=text;
+                   ChangItemData(sourceData,text,5,index)
                }}
            ></PayItem>
         );
@@ -101,25 +107,15 @@ class Pay extends Component{
         this.setState({sourceData:list});
     }
 
-    _createSend(){
-        // let list=[];
-        // list=list.concat(this.state.sourceData);
-        // list.push({
-        //     startSend: '',
-        //     endSend:'',
-        //     qs_money:'',
-        //     ps_money:'',
-        //     free_money:'',
-        // });
-        // this.setState({sourceData:list});
-    }
-
     rightOnClick(){
-        let test='';
-        for(let i=0;i<this.state.sourceData.length;i++){
-            test+=this.state.sourceData[i].startSend;
+        const { sourceData}=this.props;
+        let data='';
+        for(var i=0;i<sourceData.length;i++){
+            data+=":"+sourceData[i].startSend+":"+sourceData[i].endSend+":"
+                +sourceData[i].qs_money+":"+sourceData[i].ps_money+":"+sourceData[i].free_money;
         }
-        ToastAndroid.show(test,ToastAndroid.SHORT);
+        console.log(data);
+        console.log(sourceData)
     }
 
 }
@@ -131,6 +127,7 @@ export default connect(
     }),
     (dispatch)=>({
         AddPayItem: (sourceData)=>dispatch(PayAction.AddPayItem(sourceData)),
+        ChangItemData: (sourceData,data,type,index)=>dispatch(PayAction.ChangeItemData(sourceData,data,type,index)),
     })
 )(Pay)
 

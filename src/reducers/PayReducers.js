@@ -22,6 +22,12 @@ export default function AddPayItem(state=initialState,action){
                 sourceData: action.sourceData,
             }
             break;
+        case types.PAY_CHANGE_ITEM:
+            return{
+                ...state,
+                sourceData:action.sourceData,
+            }
+            break;
         default:
             return state;
     }

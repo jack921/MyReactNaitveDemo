@@ -25,6 +25,26 @@ export function AddPayItem(sourceData) {
         // });
 }
 
+export function  ChangeItemData(sourceData,item,type,index) {
+
+    return dispatch=>{
+        let list=[];
+        list=list.concat(sourceData);
+        if(type==1){
+            list[index].startSend=item;
+        }else if(type==2){
+            list[index].endSend=item;
+        }else if(type==3){
+            list[index].qs_money=item;
+        }else if(type==4){
+            list[index].ps_money=item;
+        }else if(type==5){
+            list[index].free_money=item;
+        }
+        dispatch(AddPaySuccess(list));
+    }
+}
+
 function AddPaySuccess(sourceData) {
     return {
         type: types.PAY_ADD_ITEM,
